@@ -3,11 +3,10 @@ class Bowling
         @score = 0
         @pin = []
         @num = 0
-        @strike = []
+        @subtotal = []
     end
     
     def add_score(score)
-        @score += score
         @pin << score
         if score == 10
             @pin << 0
@@ -15,12 +14,15 @@ class Bowling
     end
     
     def total_score
-        p @pin
         @score
     end
     
+    def frame_score(index)
+        @subtotal[index-1]
+    end
+    
     def calc_score
-        20.times do
+        while @num < @pin.size
             #最終フレームでない時
             if @num < 18
                 #ストライク発生
@@ -31,16 +33,17 @@ class Bowling
                     if @num >= 2 && @pin[@num - 2] == 10
                         @score += @pin[@num + 2]
                     end
-                    
-                    p @score
                 #スペア発生
                 elsif @pin[@num-1] != 10 && @num % 2 != 0 && @pin[@num] + @pin[@num - 1] == 10
                     @score += @pin[@num + 1]
-                    p @score
                 end    
+            end
+            @score += @pin[@num]
+            #フレームごとに小計を計算する
+            if @num % 2 != 0
+                @subtotal << @score
             end
             @num += 1
         end
-        p " 結果：#{@score} "
     end
 end
