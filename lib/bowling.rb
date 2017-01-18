@@ -36,7 +36,7 @@ class Bowling
                 #スペア発生
                 elsif @pin[@num-1] != 10 && @num % 2 != 0 && @pin[@num] + @pin[@num - 1] == 10
                     @score += @pin[@num + 1]
-                end    
+                end 
             end
             @score += @pin[@num]
             #フレームごとに小計を計算する
